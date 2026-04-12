@@ -337,6 +337,13 @@ ProcessLine =: 3 : 0
   clean =. y
   clean =. clean -. CR
 
+  NB. Remove inline comments
+  commentPos =. clean ss '//'
+  if. 0 < # commentPos do.
+    clean =. ({. commentPos) {. clean
+  end.
+  clean =. dtb clean
+
   NB. Skip empty line
   if. 0 = # clean do.
     ''
