@@ -467,7 +467,7 @@ ProcessFile =: 3 : 0
 NB. Main program
 Main =: 3 : 0
   inputFile =: y
-  outputFile =: (inputFile -. '.vm') , '.asm'
+  outputFile =: (}:^:3 inputFile) , '.asm'
   labelCounter =: 0
 
   '' 1!:2 < outputFile
