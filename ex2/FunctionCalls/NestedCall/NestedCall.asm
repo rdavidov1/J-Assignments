@@ -11,7 +11,7 @@ M=M+1
 @SP
 AM=M-1
 D=M
-@THAT
+@THIS
 M=D
 
 @5000
@@ -138,7 +138,7 @@ M=M+1
 @SP
 AM=M-1
 D=M
-@THAT
+@THIS
 M=D
 
 @5001
@@ -418,7 +418,7 @@ M=M+1
 @SP
 AM=M-1
 D=M
-@THAT
+@THIS
 M=D
 
 @5002
