@@ -271,6 +271,30 @@ TranslatePopStatic =: 3 : 0
   r
 )
 
+TranslatePushPointer =: 3 : 0
+  index =. ". > y
+  if. index = 0 do.
+    r =. '@THIS' , LF
+  else.
+    r =. '@THAT' , LF
+  end.
+  r =. r , 'D=M' , LF
+  r =. r , PushD ''
+  r
+)
+
+TranslatePopPointer =: 3 : 0
+  index =. ". > y
+  r =. PopToD ''
+  if. index = 0 do.
+    r =. r , '@THIS' , LF
+  else.
+    r =. r , '@THAT' , LF
+  end.
+  r =. r , 'M=D' , LF
+  r
+)
+
 FullLabelName =: 3 : 0
   if. 0 < # CurrentFunction do.
     CurrentFunction , '$' , y
