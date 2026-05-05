@@ -1,0 +1,58 @@
+class Hat {
+
+    static int x, y;
+
+    function void draw() {
+        let x = 250;
+        let y = 140;
+
+        do Screen.setColor(true);
+        do Screen.drawLine(x, y, x + 20, y - 20);
+        do Screen.drawLine(x + 20, y - 20, x + 40, y);
+        do Screen.drawLine(x, y, x + 40, y);
+        do Screen.drawRectangle(x - 10, y, x + 50, y + 5);
+
+        return;
+    }
+
+    function void move(int action) {
+
+        do Screen.setColor(false);
+        do Screen.drawLine(x, y, x + 20, y - 20);
+        do Screen.drawLine(x + 20, y - 20, x + 40, y);
+        do Screen.drawLine(x, y, x + 40, y);
+        do Screen.drawRectangle(x - 10, y, x + 50, y + 5);
+
+        if (action = 49) {
+            if (x < 450) {
+                let x = x + 5;
+            }
+        }
+
+        if (action = 50) {
+            if (x > 140) {
+                let x = x - 5;
+            }
+        }
+
+        if (action = 51) {
+            if (y < 230) {
+                let y = y + 5;
+            }
+        }
+
+        if (action = 52) {
+            if (y > 120) {
+                let y = y - 5;
+            }
+        }
+
+        do Screen.setColor(true);
+        do Screen.drawLine(x, y, x + 20, y - 20);
+        do Screen.drawLine(x + 20, y - 20, x + 40, y);
+        do Screen.drawLine(x, y, x + 40, y);
+        do Screen.drawRectangle(x - 10, y, x + 50, y + 5);
+
+        return;
+    }
+}
