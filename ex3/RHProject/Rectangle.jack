@@ -1,46 +1,65 @@
+// Rectangle class: draws and moves a rectangle on the screen.
 class Rectangle {
 
+    // Static coordinates store the current rectangle position.
+    // They are shared by all Rectangle functions.
     static int x, y;
 
+    // Draws the rectangle at its initial position.
     function void draw() {
+        // Set the initial top-left corner of the rectangle.
         let x = 150;
         let y = 140;
 
+        // Use black color for drawing.
         do Screen.setColor(true);
+
+        // Draw a rectangle from the top-left corner to the bottom-right corner.
         do Screen.drawRectangle(x, y, x + 30, y + 20);
 
         return;
     }
 
+    // Moves the rectangle according to the action received from the keyboard.
     function void move(int action) {
 
+        // Erase the rectangle from its current position by drawing it in white.
         do Screen.setColor(false);
         do Screen.drawRectangle(x, y, x + 30, y + 20);
 
+        // Move right when the user presses '1' (ASCII 49).
         if (action = 49) {
+            // Prevent the rectangle from moving too far to the right.
             if (x < 470) {
                 let x = x + 5;
             }
         }
 
+        // Move left when the user presses '2' (ASCII 50).
         if (action = 50) {
+            // Prevent the rectangle from moving too far to the left.
             if (x > 140) {
                 let x = x - 5;
             }
         }
 
+        // Move down when the user presses '3' (ASCII 51).
         if (action = 51) {
+            // Prevent the rectangle from moving too far down.
             if (y < 230) {
                 let y = y + 5;
             }
         }
 
+        // Move up when the user presses '4' (ASCII 52).
         if (action = 52) {
+            // Prevent the rectangle from moving too far up.
             if (y > 120) {
                 let y = y - 5;
             }
         }
 
+        // Draw the rectangle again in its new position.
         do Screen.setColor(true);
         do Screen.drawRectangle(x, y, x + 30, y + 20);
 

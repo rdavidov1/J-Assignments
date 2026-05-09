@@ -1,52 +1,73 @@
+// Hat class: draws and moves a hat-shaped object on the screen.
 class Hat {
 
+    // Static coordinates store the current base position of the hat.
+    // They are shared by all Hat functions.
     static int x, y;
 
+    // Draws the hat at its initial position.
     function void draw() {
+        // Set the initial reference point of the hat.
         let x = 250;
         let y = 140;
 
+        // Use black color for drawing.
         do Screen.setColor(true);
+
+        // Draw the triangular top of the hat.
         do Screen.drawLine(x, y, x + 20, y - 20);
         do Screen.drawLine(x + 20, y - 20, x + 40, y);
         do Screen.drawLine(x, y, x + 40, y);
+
+        // Draw the brim of the hat.
         do Screen.drawRectangle(x - 10, y, x + 50, y + 5);
 
         return;
     }
 
+    // Moves the hat according to the action received from the keyboard.
     function void move(int action) {
 
+        // Erase the hat from its current position by drawing it in white.
         do Screen.setColor(false);
         do Screen.drawLine(x, y, x + 20, y - 20);
         do Screen.drawLine(x + 20, y - 20, x + 40, y);
         do Screen.drawLine(x, y, x + 40, y);
         do Screen.drawRectangle(x - 10, y, x + 50, y + 5);
 
+        // Move right when the user presses '1' (ASCII 49).
         if (action = 49) {
+            // Prevent the hat from moving too far to the right.
             if (x < 450) {
                 let x = x + 5;
             }
         }
 
+        // Move left when the user presses '2' (ASCII 50).
         if (action = 50) {
+            // Prevent the hat from moving too far to the left.
             if (x > 140) {
                 let x = x - 5;
             }
         }
 
+        // Move down when the user presses '3' (ASCII 51).
         if (action = 51) {
+            // Prevent the hat from moving too far down.
             if (y < 230) {
                 let y = y + 5;
             }
         }
 
+        // Move up when the user presses '4' (ASCII 52).
         if (action = 52) {
+            // Prevent the hat from moving too far up.
             if (y > 120) {
                 let y = y - 5;
             }
         }
 
+        // Draw the hat again in its new position.
         do Screen.setColor(true);
         do Screen.drawLine(x, y, x + 20, y - 20);
         do Screen.drawLine(x + 20, y - 20, x + 40, y);
