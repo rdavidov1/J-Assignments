@@ -1,0 +1,127 @@
+// Helicopter class: draws and rotates a helicopter-shaped object.
+class Helicopter {
+
+    // Static coordinates store the center position of the helicopter.
+    static int x, y;
+
+    // Stores the current orientation:
+    // 0 = facing right, 1 = facing down, 2 = facing left, 3 = facing up.
+    static int rotation;
+
+    // Draws the helicopter in its initial position and orientation.
+    function void draw() {
+        // Set the center of the helicopter.
+        let x = 260;
+        let y = 140;
+
+        // Start with the helicopter facing right.
+        let rotation = 0;
+
+        // Draw the helicopter in black.
+        do Helicopter.drawShape(true);
+
+        return;
+    }
+
+    // Draws or erases the helicopter according to its current orientation.
+    function void drawShape(boolean color) {
+        // true means black, false means white.
+        do Screen.setColor(color);
+
+        // Rotation 0: helicopter faces right.
+        if (rotation = 0) {
+            // Main cabin.
+            do Screen.drawRectangle(x - 10, y - 10, x + 25, y + 10);
+            // Tail.
+            do Screen.drawLine(x - 10, y, x - 45, y);
+            do Screen.drawLine(x - 45, y - 8, x - 45, y + 8);
+            // Top rotor.
+            do Screen.drawLine(x - 35, y - 18, x + 35, y - 18);
+            do Screen.drawLine(x, y - 10, x, y - 18);
+            // Landing skids.
+            do Screen.drawLine(x - 5, y + 18, x + 25, y + 18);
+            do Screen.drawLine(x, y + 10, x - 5, y + 18);
+            do Screen.drawLine(x + 20, y + 10, x + 25, y + 18);
+        }
+
+        // Rotation 1: helicopter faces down.
+        if (rotation = 1) {
+            // Main cabin.
+            do Screen.drawRectangle(x - 10, y - 10, x + 10, y + 25);
+            // Tail.
+            do Screen.drawLine(x, y - 10, x, y - 45);
+            do Screen.drawLine(x - 8, y - 45, x + 8, y - 45);
+            // Rotor on the side after rotation.
+            do Screen.drawLine(x + 18, y - 35, x + 18, y + 35);
+            do Screen.drawLine(x + 10, y, x + 18, y);
+            // Landing skids.
+            do Screen.drawLine(x - 18, y - 5, x - 18, y + 25);
+            do Screen.drawLine(x - 10, y, x - 18, y - 5);
+            do Screen.drawLine(x - 10, y + 20, x - 18, y + 25);
+        }
+
+        // Rotation 2: helicopter faces left.
+        if (rotation = 2) {
+            // Main cabin.
+            do Screen.drawRectangle(x - 25, y - 10, x + 10, y + 10);
+            // Tail.
+            do Screen.drawLine(x + 10, y, x + 45, y);
+            do Screen.drawLine(x + 45, y - 8, x + 45, y + 8);
+            // Top rotor.
+            do Screen.drawLine(x - 35, y + 18, x + 35, y + 18);
+            do Screen.drawLine(x, y + 10, x, y + 18);
+            // Landing skids.
+            do Screen.drawLine(x - 25, y - 18, x + 5, y - 18);
+            do Screen.drawLine(x - 20, y - 10, x - 25, y - 18);
+            do Screen.drawLine(x, y - 10, x + 5, y - 18);
+        }
+
+        // Rotation 3: helicopter faces up.
+        if (rotation = 3) {
+            // Main cabin.
+            do Screen.drawRectangle(x - 10, y - 25, x + 10, y + 10);
+            // Tail.
+            do Screen.drawLine(x, y + 10, x, y + 45);
+            do Screen.drawLine(x - 8, y + 45, x + 8, y + 45);
+            // Rotor on the side after rotation.
+            do Screen.drawLine(x - 18, y - 35, x - 18, y + 35);
+            do Screen.drawLine(x - 10, y, x - 18, y);
+            // Landing skids.
+            do Screen.drawLine(x + 18, y - 25, x + 18, y + 5);
+            do Screen.drawLine(x + 10, y - 20, x + 18, y - 25);
+            do Screen.drawLine(x + 10, y, x + 18, y + 5);
+        }
+
+        return;
+    }
+
+    // Rotates the helicopter according to the keyboard action.
+    function void rotate(int action) {
+        // Erase the helicopter from its current orientation.
+        do Helicopter.drawShape(false);
+
+        // ASCII 49 represents '1': rotate clockwise.
+        if (action = 49) {
+            let rotation = rotation + 1;
+        }
+
+        // ASCII 50 represents '2': rotate counterclockwise.
+        if (action = 50) {
+            let rotation = rotation - 1;
+        }
+
+        // Keep the orientation in the range 0 to 3.
+        if (rotation > 3) {
+            let rotation = 0;
+        }
+
+        if (rotation < 0) {
+            let rotation = 3;
+        }
+
+        // Draw the helicopter again in the new orientation.
+        do Helicopter.drawShape(true);
+
+        return;
+    }
+}

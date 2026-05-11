@@ -1,0 +1,94 @@
+// Main class: controls the menu, object selection, and rotation actions.
+class Main {
+
+    // Program entry point.
+    function void main() {
+        // Stores the object selected by the user.
+        var int choice;
+
+        // Stores the rotation command selected by the user.
+        var int action;
+
+        // Counts how many rotation commands were performed.
+        var int counter;
+
+        // Start the counter from zero.
+        let counter = 0;
+
+        // Clear the screen before showing the first menu.
+        do Screen.clearScreen();
+
+        // Print the object selection menu.
+        do Output.printString("Choose object:");
+        do Output.println();
+        do Output.printString("1 - Rocket");
+        do Output.println();
+        do Output.printString("2 - Helicopter");
+        do Output.println();
+
+        // Read the selected object.
+        // ASCII 49 is the character '1', and ASCII 50 is the character '2'.
+        let choice = Keyboard.readChar();
+
+        // Clear the screen before drawing the selected object.
+        do Screen.clearScreen();
+
+        // Draw the selected object in its initial orientation.
+        if (choice = 49) {
+            do Rocket.draw();
+        } else {
+            do Helicopter.draw();
+        }
+
+        // Print the rotation action menu.
+        do Output.moveCursor(0, 0);
+        do Output.printString("Choose action:");
+        do Output.println();
+        do Output.printString("1 - Rotate clockwise");
+        do Output.println();
+        do Output.printString("2 - Rotate counterclockwise");
+        do Output.println();
+        do Output.printString("3 - Exit");
+        do Output.println();
+
+        // Continue reading commands until the user chooses to exit.
+        while (true) {
+            // Read the next action from the keyboard.
+            let action = Keyboard.readChar();
+
+            // ASCII 51 is the character '3', which exits the program.
+            if (action = 51) {
+                // Clear the screen and print a short summary.
+                do Screen.clearScreen();
+                do Output.moveCursor(2, 12);
+                do Output.printString("Shape: ");
+
+                // Print the name of the selected object.
+                if (choice = 49) {
+                    do Output.printString("Rocket ");
+                } else {
+                    do Output.printString("Helicopter ");
+                }
+
+                // Print the number of rotations performed.
+                do Output.printString(",Rotations: ");
+                do Output.printInt(counter);
+
+                // End the program.
+                return;
+            }
+
+            // Rotate the selected object according to the action.
+            if (choice = 49) {
+                do Rocket.rotate(action);
+            } else {
+                do Helicopter.rotate(action);
+            }
+
+            // Count every non-exit command as a rotation command.
+            let counter = counter + 1;
+        }
+
+        return;
+    }
+}

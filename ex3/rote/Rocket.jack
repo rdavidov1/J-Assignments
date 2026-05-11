@@ -1,0 +1,123 @@
+// Rocket class: draws and rotates a rocket-shaped object.
+class Rocket {
+
+    // Static coordinates store the center position of the rocket.
+    static int x, y;
+
+    // Stores the current orientation:
+    // 0 = up, 1 = right, 2 = down, 3 = left.
+    static int rotation;
+
+    // Draws the rocket in its initial position and orientation.
+    function void draw() {
+        // Set the center of the rocket.
+        let x = 260;
+        let y = 140;
+
+        // Start with the rocket pointing up.
+        let rotation = 0;
+
+        // Draw the rocket in black.
+        do Rocket.drawShape(true);
+
+        return;
+    }
+
+    // Draws or erases the rocket according to its current orientation.
+    function void drawShape(boolean color) {
+        // true means black, false means white.
+        do Screen.setColor(color);
+
+        // Rotation 0: rocket points up.
+        if (rotation = 0) {
+            // Rocket body.
+            do Screen.drawRectangle(x - 10, y - 15, x + 10, y + 20);
+            // Nose cone.
+            do Screen.drawLine(x - 10, y - 15, x, y - 35);
+            do Screen.drawLine(x, y - 35, x + 10, y - 15);
+            // Fins.
+            do Screen.drawLine(x - 10, y + 15, x - 22, y + 28);
+            do Screen.drawLine(x + 10, y + 15, x + 22, y + 28);
+            // Engine flame.
+            do Screen.drawLine(x - 6, y + 20, x, y + 35);
+            do Screen.drawLine(x, y + 35, x + 6, y + 20);
+        }
+
+        // Rotation 1: rocket points right.
+        if (rotation = 1) {
+            // Rocket body.
+            do Screen.drawRectangle(x - 20, y - 10, x + 15, y + 10);
+            // Nose cone.
+            do Screen.drawLine(x + 15, y - 10, x + 35, y);
+            do Screen.drawLine(x + 35, y, x + 15, y + 10);
+            // Fins.
+            do Screen.drawLine(x - 15, y - 10, x - 28, y - 22);
+            do Screen.drawLine(x - 15, y + 10, x - 28, y + 22);
+            // Engine flame.
+            do Screen.drawLine(x - 20, y - 6, x - 35, y);
+            do Screen.drawLine(x - 35, y, x - 20, y + 6);
+        }
+
+        // Rotation 2: rocket points down.
+        if (rotation = 2) {
+            // Rocket body.
+            do Screen.drawRectangle(x - 10, y - 20, x + 10, y + 15);
+            // Nose cone.
+            do Screen.drawLine(x - 10, y + 15, x, y + 35);
+            do Screen.drawLine(x, y + 35, x + 10, y + 15);
+            // Fins.
+            do Screen.drawLine(x - 10, y - 15, x - 22, y - 28);
+            do Screen.drawLine(x + 10, y - 15, x + 22, y - 28);
+            // Engine flame.
+            do Screen.drawLine(x - 6, y - 20, x, y - 35);
+            do Screen.drawLine(x, y - 35, x + 6, y - 20);
+        }
+
+        // Rotation 3: rocket points left.
+        if (rotation = 3) {
+            // Rocket body.
+            do Screen.drawRectangle(x - 15, y - 10, x + 20, y + 10);
+            // Nose cone.
+            do Screen.drawLine(x - 15, y - 10, x - 35, y);
+            do Screen.drawLine(x - 35, y, x - 15, y + 10);
+            // Fins.
+            do Screen.drawLine(x + 15, y - 10, x + 28, y - 22);
+            do Screen.drawLine(x + 15, y + 10, x + 28, y + 22);
+            // Engine flame.
+            do Screen.drawLine(x + 20, y - 6, x + 35, y);
+            do Screen.drawLine(x + 35, y, x + 20, y + 6);
+        }
+
+        return;
+    }
+
+    // Rotates the rocket according to the keyboard action.
+    function void rotate(int action) {
+        // Erase the rocket from its current orientation.
+        do Rocket.drawShape(false);
+
+        // ASCII 49 represents '1': rotate clockwise.
+        if (action = 49) {
+            let rotation = rotation + 1;
+        }
+
+        // ASCII 50 represents '2': rotate counterclockwise.
+        if (action = 50) {
+            let rotation = rotation - 1;
+        }
+
+        // Keep the orientation in the range 0 to 3.
+        if (rotation > 3) {
+            let rotation = 0;
+        }
+
+        if (rotation < 0) {
+            let rotation = 3;
+        }
+
+        // Draw the rocket again in the new orientation.
+        do Rocket.drawShape(true);
+
+        return;
+    }
+}
