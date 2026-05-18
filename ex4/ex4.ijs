@@ -62,7 +62,7 @@ EscapeXml =: 3 : 0
   r =. ''
   for_c. y do.
     select. c
-      case. '<' do. r =. r , '&lt;'ש
+      case. '<' do. r =. r , '&lt;'
       case. '>' do. r =. r , '&gt;'
       case. '"' do. r =. r , '&quot;'
       case. '&' do. r =. r , '&amp;'
@@ -125,7 +125,7 @@ Tokenize =: 3 : 0
       j =. i
       while. (j < n) *. ('"' ~: j { src) do. j =. j + 1 end.
       val   =. (j - i) {. i }. src   NB. content between quotes
-      tlist =. tlist , < 'stringConstant' ; val
+      tlist =. tlist , < ('stringConstant' ; val)
       i     =. j + 1                  NB. skip closing double-quote
       continue.
     end.
@@ -135,14 +135,14 @@ Tokenize =: 3 : 0
       j =. i + 1
       while. (j < n) *. IsDigit (j { src) do. j =. j + 1 end.
       val   =. (j - i) {. i }. src
-      tlist =. tlist , < 'integerConstant' ; val
+      tlist =. tlist , < ('integerConstant' ; val)
       i     =. j
       continue.
     end.
 
     NB. ---- Symbol: single-character token ----
     if. c e. SYMBOLS do.
-      tlist =. tlist , < 'symbol' ; (1 {. i }. src)
+      tlist =. tlist , < ('symbol' ; (1 {. i }. src))
       i     =. i + 1
       continue.
     end.
@@ -154,9 +154,9 @@ Tokenize =: 3 : 0
       val =. (j - i) {. i }. src
       NB. Check if the word is a reserved keyword
       if. (<val) e. KEYWORDS do.
-        tlist =. tlist , < 'keyword' ; val
+        tlist =. tlist , < ('keyword' ; val)
       else.
-        tlist =. tlist , < 'identifier' ; val
+        tlist =. tlist , < ('identifier' ; val)
       end.
       i =. j
       continue.
@@ -208,7 +208,7 @@ AnalyzeFile =: 3 : 0
 
   xml =. '<tokens>' , LF
   for_tok. tlist do.
-    xml =. xml , '   ' , (TokenToXml tok) , LF
+    xml =. xml , '   ' , (TokenToXml > tok) , LF
   end.
   xml =. xml , '</tokens>' , LF
 
@@ -233,10 +233,11 @@ GetJackFiles =: 3 : 0
   if. 0 = # raw do.
     0 # a:
   else.
-    <;._2 raw , LF
+    files =. <;._2 raw , LF
+    files =. files #~ 0 < #&> files
+    files
   end.
 )
-
 
 NB. ------- Main -------
 
